@@ -48,50 +48,70 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        children: [
-          Center(
-            child: Column(
+      body: BlocListener<CounterCubit, CounterState>(
+        listener: (context, state) {
+          // TODO: implement listener}
+          if(state.wasIncremented==true){
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text("data Incremneted"),
+                duration: Duration(milliseconds: 300),
+              )
+            );
+          }else{
+            Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("data Decremented"),
+                  duration: Duration(milliseconds: 300),
+                )
+            );
+          }
+        },
+        child: Column(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'You have pushed the button this many times:',
+                  ),
+                  BlocBuilder<CounterCubit, CounterState>(
+                    builder: (context, state) {
+                      return Text(
+                        state.counterValue.toString(),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline4,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'You have pushed the button this many times:',
-                ),
-                BlocBuilder<CounterCubit, CounterState>(
-                  builder: (context, state) {
-                    return Text(
-                      state.counterValue.toString(),
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline4,
-                    );
+              children: [
+                FloatingActionButton(
+                  onPressed: () {
+                    // BlocProvider.of<CounterCubit>(context).increment();
+                    context.bloc<CounterCubit>().increment();
                   },
+                  tooltip: 'Increment',
+                  child: Icon(Icons.add),
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<CounterCubit>(context).dicrement();
+                  },
+                  tooltip: 'Dicrement',
+                  child: Icon(Icons.subdirectory_arrow_left),
                 ),
               ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FloatingActionButton(
-                onPressed: () {
-                  // BlocProvider.of<CounterCubit>(context).increment();
-                  context.bloc<CounterCubit>().increment();
-                },
-                tooltip: 'Increment',
-                child: Icon(Icons.add),
-              ),
-              FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<CounterCubit>(context).dicrement();
-                },
-                tooltip: 'Dicrement',
-                child: Icon(Icons.subdirectory_arrow_left),
-              ),
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
