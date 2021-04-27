@@ -51,14 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: BlocListener<CounterCubit, CounterState>(
         listener: (context, state) {
           // TODO: implement listener}
-          if(state.wasIncremented==true){
+          if (state.wasIncremented == true) {
             Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text("data Incremneted"),
-                duration: Duration(milliseconds: 300),
-              )
+                SnackBar(
+                  content: Text("data Incremneted"),
+                  duration: Duration(milliseconds: 100),
+                )
             );
-          }else{
+          } else {
             Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text("data Decremented"),
@@ -73,8 +73,23 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'You have pushed the button this many times:',
+                  BlocConsumer<CounterCubit, CounterState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                      if (state.wasIncremented == true) {
+                        Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(" Incremneted show for blockConsumer"),
+                              duration: Duration(milliseconds: 200),
+                            )
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      return Text(
+                        state.counterValue.toString()+" for blocConsumer",
+                      );
+                    },
                   ),
                   BlocBuilder<CounterCubit, CounterState>(
                     builder: (context, state) {
