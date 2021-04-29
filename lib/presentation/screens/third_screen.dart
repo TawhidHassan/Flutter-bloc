@@ -1,24 +1,24 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_complete/business_logic/cubit/counter_cubit.dart';
 
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.title, this.color}) : super(key: key);
+
+class ThirdScreen extends StatefulWidget {
+  ThirdScreen({Key key, this.title, this.color}) : super(key: key);
 
   final String title;
   final Color color;
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ThirdScreenState createState() => _ThirdScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  GlobalKey<ScaffoldState> homeScreenKey = GlobalKey<ScaffoldState>();
+class _ThirdScreenState extends State<ThirdScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: homeScreenKey,
       appBar: AppBar(
         backgroundColor: widget.color,
         title: Text(widget.title),
@@ -33,14 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocConsumer<CounterCubit, CounterState>(
               listener: (context, state) {
                 if (state.wasIncremented == true) {
-                  homeScreenKey.currentState.showSnackBar(
+                  Scaffold.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Incremented!'),
                       duration: Duration(milliseconds: 300),
                     ),
                   );
                 } else if (state.wasIncremented == false) {
-                  homeScreenKey.currentState.showSnackBar(
+                  Scaffold.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Decremented!'),
                       duration: Duration(milliseconds: 300),
@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 FloatingActionButton(
                   heroTag: Text('${widget.title}'),
+                  backgroundColor: widget.color,
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).dicrement();
                     // context.bloc<CounterCubit>().decrement();
@@ -87,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Icon(Icons.remove),
                 ),
                 FloatingActionButton(
+                  backgroundColor: widget.color,
                   heroTag: Text('${widget.title} 2nd'),
                   onPressed: () {
                     // BlocProvider.of<CounterCubit>(context).increment();
@@ -100,34 +102,25 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 24,
             ),
-            MaterialButton(
-              color: Colors.redAccent,
-              child: Text(
-                'Go to Second Screen',
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  '/second',
-                  arguments: homeScreenKey,
-                );
-              },
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            MaterialButton(
-              color: Colors.greenAccent,
-              child: Text(
-                'Go to Third Screen',
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  '/third',
-                );
-              },
-            ),
+            // MaterialButton(
+            //   color: widget.color,
+            //   child: Text(
+            //     'Go to Second Screen',
+            //     style: TextStyle(color: Colors.white),
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute<HomeScreen>(
+            //         builder: (context) {
+            //           return HomeScreen(
+            //             color: Colors.redAccent,
+            //             title: 'Second Screen',
+            //           );
+            //         },
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
