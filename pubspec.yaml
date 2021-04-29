@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.1
   bloc_test: ^7.0.4
   flutter_bloc: ^6.0.5
+  connectivity_plus:
 
 dev_dependencies:
   flutter_test:
