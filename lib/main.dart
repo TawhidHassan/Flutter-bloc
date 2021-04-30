@@ -4,11 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_complete/business_logic/cubit/counter_cubit.dart';
 import 'package:flutter_bloc_complete/business_logic/cubit/settings_cubit.dart';
 import 'package:flutter_bloc_complete/presentation/router/app_router.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'business_logic/cubit/internet_cubit.dart';
 
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  HydratedBloc.storage=await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+
   runApp(MyApp(
     appRouter: AppRouter(),
     connectivity: Connectivity(),

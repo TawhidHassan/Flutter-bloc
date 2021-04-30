@@ -32,6 +32,8 @@ dependencies:
   flutter_bloc: ^6.0.5
   connectivity_plus:
   equatable: ^1.2.5
+  hydrated_bloc: ^6.1.0
+  path_provider: ^1.6.24
 
 dev_dependencies:
   flutter_test:
