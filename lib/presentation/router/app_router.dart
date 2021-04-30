@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_complete/presentation/screens/home_screen.dart';
 import 'package:flutter_bloc_complete/presentation/screens/secound_screen.dart';
+import 'package:flutter_bloc_complete/presentation/screens/settings_screen.dart';
 import 'package:flutter_bloc_complete/presentation/screens/third_screen.dart';
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
@@ -26,6 +27,11 @@ class AppRouter {
           builder: (_) => ThirdScreen(
             title: "Thirst Screen",
             color: Colors.greenAccent,
+          ),
+        );
+      case '/settings':
+        return MaterialPageRoute(
+          builder: (_) => SettingsScreen(
           ),
         );
       default:
